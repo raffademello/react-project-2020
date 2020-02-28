@@ -1,11 +1,21 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
+import { Header, Segment, Container } from "semantic-ui-react";
+import Routes from "./Routes";
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <>
+      <Segment className="p-5" vertical>
+        <Container>
+          <Header size="huge" className="mb-5">
+            <Navbar />
+          </Header>
+          <Routes/>
+        </Container>
+      </Segment>
+    </>
   );
 }
 
