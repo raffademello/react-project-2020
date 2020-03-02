@@ -1,21 +1,29 @@
 import React, { Component } from "react";
-import { Grid, Header, Form, TextArea, Button, Input } from "semantic-ui-react";
+import {
+  Grid,
+  Header,
+  Form,
+  TextArea,
+  Button,
+  Input,
+  Message
+} from "semantic-ui-react";
 import productService from "../../app/productService";
 
-
 const inicialState = {
-    nomeProduto: "",
-    SKU: "",
-    valorProduto: 0,
-    fornecedorProduto: "",
-    descricaoProduto: ""
+  nomeProduto: "",
+  SKU: "",
+  valorProduto: 0,
+  fornecedorProduto: "",
+  descricaoProduto: "",
+  sucessSave: false
 };
 
 class Cadastro extends Component {
   state = inicialState;
 
-  constructor(){
-    super()
+  constructor() {
+    super();
     this.service = new productService();
   }
 
@@ -32,22 +40,25 @@ class Cadastro extends Component {
   };
 
   handleOnSubmit = event => {
-      const product ={
-        nomeProduto: this.state.nomeProduto,
-        SKU: this.state.SKU,
-        valorProduto: this.state.valorProduto,
-        fornecedorProduto: this.state.fornecedorProduto,
-        descricaoProduto: this.state.descricaoProduto      
-      }
-      this.service.save(product);
-      console.log("Salvo com sucesso");
+    const product = {
+      nomeProduto: this.state.nomeProduto,
+      SKU: this.state.SKU,
+      valorProduto: this.state.valorProduto,
+      fornecedorProduto: this.state.fornecedorProduto,
+      descricaoProduto: this.state.descricaoProduto
+    };
+    this.service.save(product);
+    this.handleCleanInput();
+    this.setState({
+      sucessSave: true
+    });
   };
 
   render() {
     return (
       <>
         <Header size="large">Cadastro de produtos</Header>
-        <Form className="mt-5">
+        <Form className="mt-5" autocomplete="off">
           <Grid columns={2} divided>
             <Grid.Row>
               <Grid.Column>
@@ -113,6 +124,12 @@ class Cadastro extends Component {
             </Button>
           </div>
         </Form>
+        {this.state.sucessSave && (
+          <Message>
+            <Message.Header>Cadastro realizado com sucesso !</Message.Header>
+            <p>Clique em 'produtos' para verificar a lista de produtos</p>
+          </Message>
+        )}
       </>
     );
   }
