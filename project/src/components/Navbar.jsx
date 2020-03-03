@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Menu } from "semantic-ui-react";
-import { Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class navbar extends Component {
   state = {};
@@ -16,31 +16,35 @@ class navbar extends Component {
     return (
       <div>
         <Menu>
-             <Menu.Item
-              name="home"
-              active={activeItem === "home"}
-              onClick={this.handleItemClick}
-              to="/"
-            >
-              Home
-            </Menu.Item>
+          <Menu.Item
+            as={Link}
+            name="home"
+            active={activeItem === "home"}
+            onClick={this.handleItemClick}
+            to="/"
+          >
+            Home
+          </Menu.Item>
 
-            <Menu.Item
-              name="cadastro"
-              active={activeItem === "cadastro"}
-              onClick={this.handleItemClick}
-              to="cadastro-produtos"
-            >
-              Cadastro
-            </Menu.Item>
+          <Menu.Item
+            as={Link}
+            name="cadastro"
+            active={activeItem === "cadastro"}
+            onClick={this.handleItemClick}
+            to="/cadastro-produtos"
+          >
+            Cadastro
+          </Menu.Item>
 
-            <Menu.Item
-              name="consulta"
-              active={activeItem === "consulta"}
-              onClick={this.handleItemClick}
-            >
-              Consulta
-            </Menu.Item>
+          <Menu.Item
+            as={Link}
+            name="consulta"
+            active={activeItem === "consulta"}
+            onClick={this.handleItemClick}
+            to="/consulta-produtos"
+          >
+            Consulta
+          </Menu.Item>
         </Menu>
       </div>
     );
