@@ -18,7 +18,8 @@ const inicialState = {
   fornecedorProduto: "",
   descricaoProduto: "",
   sucessSave: false,
-  errors: []
+  errors: [],
+  atualizando: false
 };
 
 class Cadastro extends Component {
@@ -36,10 +37,12 @@ class Cadastro extends Component {
         .service.getProducts()
         .filter(product => product.SKU === SKU)
         if(result.length === 1){
-            const selectedProduct = result[0]
+            const selectedProduct = result[0];
+            //console.log(selectedProduct);
             this.setState({
-              ...selectedProduct
-            })
+              ...selectedProduct,
+              atualizando: true
+            });
         }
       }
   }
@@ -57,6 +60,7 @@ class Cadastro extends Component {
   };
 
   handleOnSubmit = event => {
+    event.preventDefault();
     const product = {
       nomeProduto: this.state.nomeProduto,
       SKU: this.state.SKU,
@@ -81,7 +85,10 @@ class Cadastro extends Component {
   render() {
     return (
       <>
-        <Header size="large">Cadastro de produtos</Header>
+        <Header size="large">
+            {this.state.atualizando ? 'Atualização ' : 'Cadastro '}
+            de produto
+        </Header>
         {this.state.errors && this.state.errors.length > 0 && (
           <Message>
             <Message.Header> Ocorreu um erro </Message.Header>
@@ -96,7 +103,7 @@ class Cadastro extends Component {
             </Message.List>
           </Message>
         )}
-        <Form className="mt-5" autocomplete="off">
+        <Form id="frmProduto" className="mt-5" autoComplete="off" onSubmit={this.onSubmit}>
           <Grid columns={2} divided>
             <Grid.Row>
               <Grid.Column>
@@ -115,6 +122,7 @@ class Cadastro extends Component {
                   <Input
                     value={this.state.SKU}
                     name="SKU"
+                    disabled={this.state.atualizando}
                     onChange={this.handleOnChange}
                   />
                 </Form.Field>
@@ -164,7 +172,7 @@ class Cadastro extends Component {
               Limpar
             </Button>
             <Button type="submit" color="blue" onClick={this.handleOnSubmit}>
-              Enviar
+              {this.state.atualizando ? 'Atualizar' : 'Cadastrar'}
             </Button>
           </div>
         </Form>

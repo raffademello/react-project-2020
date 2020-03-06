@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Menu } from "semantic-ui-react";
+import { Menu, Responsive } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 class navbar extends Component {

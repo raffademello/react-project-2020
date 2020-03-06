@@ -35,8 +35,21 @@ export default class productService {
 
     getProducts =() => {
         let products = localStorage.getItem(PRODUCTS); 
+        if(!products){
+            return [];
+        }
         return JSON.parse(products); /* O LocalStorage só armazena strings, o JSON Parse converte para JSON */
     }
+
+    getProductIndex = (sku) => {
+        let index = null;
+        this.getProducts().map((product,i) => {
+            if (product.SKU === sku){
+                index = i;
+            }
+        });
+        return index;
+     }
 
     save = (product) => {
         this.validate(product);
@@ -46,9 +59,22 @@ export default class productService {
         }else{
             products = JSON.parse(products);/*recebe string e transforma em JSON*/
         }
-
-        products.push(product);
-
+        const index = this.getProductIndex(product.SKU);
+        if(index === null){
+            products.push(product); /* adiciona o array do produto no array existente */
+        }else{
+            products[index] = product;
+        }
         localStorage.setItem(PRODUCTS,JSON.stringify(products)); /* transforma JSON em string*/
+    }
+
+    delete = (sku) =>{
+        const index = this.getProductIndex(sku);
+        if(index !== null){
+            const products = this.getProducts();
+            products.splice(index,1);
+            localStorage.setItem(PRODUCTS,JSON.stringify(products));
+            return products;
+        }
     }
 }

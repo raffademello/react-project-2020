@@ -23,7 +23,14 @@ class Consulta extends Component {
 
   handleEdit = (sku) => {
      this.props.history.push(`/cadastro-produtos/${sku}`);
-     console.log('sku para editar', sku);
+     //console.log('sku para editar', sku);
+  }
+
+  handleDelete = (sku) => {
+      const products = this.service.delete(sku);
+      this.setState({
+        products
+      })
   }
 
   render() {
@@ -54,7 +61,7 @@ class Consulta extends Component {
                     <Button basic color="blue" onClick={() => this.handleEdit(product.SKU)}>
                       Editar
                     </Button>
-                    <Button basic color="red">
+                    <Button basic color="red" onClick={() => this.handleDelete(product.SKU)}>
                       Excluir
                     </Button>
                   </Table.Cell>
