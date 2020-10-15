@@ -31882,3 +31882,29 @@ body.pushable > .pusher {
 /*******************************
          Site Overrides
 *******************************/
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+  .results .item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: solid 1px #CCC;
+    margin: 20px;
+    flex-direction: column; }
+    .results .item .img {
+      border-radius: 50%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 15px;
+      height: 15px;
+      padding: 0 15px; }
+    .results .item .score-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 20px; }
+    .results .item .score {
+      display: flex; }
